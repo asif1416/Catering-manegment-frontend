@@ -7,7 +7,7 @@ import Footer from "@/components/Footer";
 export default async function MenuItemPage({params,}: {
     params: { id: string };
 }) {
-    const { id } = await params;
+    const { id } =  params;
 
     if (!id) {
         notFound();
