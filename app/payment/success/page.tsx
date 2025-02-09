@@ -1,6 +1,6 @@
 "use client";
 
-import {useEffect, useState} from "react";
+import {Suspense, useEffect, useState} from "react";
 import {useSearchParams} from "next/navigation";
 import api from "@/api/api";
 import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card";
@@ -27,7 +27,7 @@ interface PaymentDetails {
   };
 }
 
-export default function PaymentSuccess() {
+function PaymentContent() {
   const searchParams = useSearchParams();
   const [paymentData, setPaymentData] = useState<PaymentDetails | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
@@ -51,70 +51,78 @@ export default function PaymentSuccess() {
   }, [searchParams]);
 
   return (
+      <div className="flex flex-col items-center justify-center m-4">
+        <h1 className="text-3xl font-semibold text-green-600">
+          Payment Successful 🎉
+        </h1>
+        <p className="text-gray-600 mt-2">
+          Thank you for your payment. Your transaction was successful.
+        </p>
+
+        {loading ? (
+            <div className="mt-6 flex items-center">
+              <Loader />
+            </div>
+        ) : paymentData ? (
+            <Card className="mt-6 w-full max-w-md shadow-lg">
+              <CardHeader>
+                <CardTitle className="text-lg text-gray-800">
+                  Transaction Details
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-2 text-gray-700">
+                <div>
+                  <strong>Transaction ID:</strong> {paymentData.tran_id}
+                </div>
+                <div>
+                  <strong>Amount:</strong> {paymentData.total_amount}{" "}
+                  {paymentData.currency}
+                </div>
+                <div>
+                  <strong>Payment Status:</strong> {paymentData.paymentStatus}
+                </div>
+                <div>
+                  <strong>Payment Method:</strong>{" "}
+                  {paymentData.paymentMethod || "N/A"}
+                </div>
+                <div>
+                  <strong>Card Issuer:</strong> {paymentData.cardIssuer}
+                </div>
+                <Separator />
+                <div className="text-gray-900 font-semibold">Customer Details</div>
+                <div>
+                  <strong>Name:</strong> {paymentData.customerName}
+                </div>
+                <div>
+                  <strong>Email:</strong> {paymentData.customerEmail}
+                </div>
+                <div>
+                  <strong>Phone:</strong> {paymentData.customerPhone}
+                </div>
+                <Separator />
+                <div>
+                  <strong>Total Price:</strong> {paymentData.order.totalPrice}{" "}
+                  {paymentData.currency}
+                </div>
+                <div>
+                  <strong>Order Status:</strong> {paymentData.order.status}
+                </div>
+              </CardContent>
+            </Card>
+        ) : (
+            <p className="mt-4 text-red-500">Failed to retrieve payment details.</p>
+        )}
+      </div>
+  );
+}
+
+export default function PaymentSuccess() {
+  return (
       <>
         <Navbar />
-        <div className="flex flex-col items-center justify-center m-4">
-          <h1 className="text-3xl font-semibold text-green-600">
-            Payment Successful 🎉
-          </h1>
-          <p className="text-gray-600 mt-2">
-            Thank you for your payment. Your transaction was successful.
-          </p>
-
-          {loading ? (
-              <div className="mt-6 flex items-center">
-                <Loader />
-              </div>
-          ) : paymentData ? (
-              <Card className="mt-6 w-full max-w-md shadow-lg">
-                <CardHeader>
-                  <CardTitle className="text-lg text-gray-800">
-                    Transaction Details
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-2 text-gray-700">
-                  <div>
-                    <strong>Transaction ID:</strong> {paymentData.tran_id}
-                  </div>
-                  <div>
-                    <strong>Amount:</strong> {paymentData.total_amount}{" "}
-                    {paymentData.currency}
-                  </div>
-                  <div>
-                    <strong>Payment Status:</strong> {paymentData.paymentStatus}
-                  </div>
-                  <div>
-                    <strong>Payment Method:</strong>{" "}
-                    {paymentData.paymentMethod || "N/A"}
-                  </div>
-                  <div>
-                    <strong>Card Issuer:</strong> {paymentData.cardIssuer}
-                  </div>
-                  <Separator />
-                  <div className="text-gray-900 font-semibold">Customer Details</div>
-                  <div>
-                    <strong>Name:</strong> {paymentData.customerName}
-                  </div>
-                  <div>
-                    <strong>Email:</strong> {paymentData.customerEmail}
-                  </div>
-                  <div>
-                    <strong>Phone:</strong> {paymentData.customerPhone}
-                  </div>
-                  <Separator />
-                  <div>
-                    <strong>Total Price:</strong> {paymentData.order.totalPrice}{" "}
-                    {paymentData.currency}
-                  </div>
-                  <div>
-                    <strong>Order Status:</strong> {paymentData.order.status}
-                  </div>
-                </CardContent>
-              </Card>
-          ) : (
-              <p className="mt-4 text-red-500">Failed to retrieve payment details.</p>
-          )}
-        </div>
+        <Suspense fallback={<Loader />}>
+          <PaymentContent />
+        </Suspense>
         <Footer />
       </>
   );
