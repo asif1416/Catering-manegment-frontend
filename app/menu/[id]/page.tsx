@@ -1,3 +1,4 @@
+'use client'
 import { notFound } from "next/navigation";
 import { fetchMenuItem } from "@/api/menu";
 import MenuItemDetails from "../MenuItemDetails";
