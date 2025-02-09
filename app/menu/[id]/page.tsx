@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import { notFound } from "next/navigation";
 import { fetchMenuItem } from "@/api/menu";
 import MenuItemDetails from "../MenuItemDetails";
@@ -7,14 +7,7 @@ import Footer from "@/components/Footer";
 import { useEffect, useState } from "react";
 import { MenuItem } from "@/types/types";
 
-interface PageProps {
-  params: {
-    id: string;
-  };
-}
-
-
-export default function MenuItemPage({ params }: PageProps) {
+export default function MenuItemPage({ params }: { params: { id: string } }) {
   const { id } = params;
   const [menuItem, setMenuItem] = useState<MenuItem | null>(null);
 
