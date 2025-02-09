@@ -94,129 +94,135 @@ const SignIn = () => {
     }
 
     return (
-        <div className="flex min-h-screen">
-            <div className="w-full lg:w-1/2 flex items-center justify-center p-8">
-                <Card className="w-full max-w-md">
-                    <CardHeader>
-                        <CardTitle>Sign In</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                        <Formik
-                            initialValues={{email: "", password: ""}}
-                            validationSchema={validationSchema}
-                            onSubmit={handleSubmit}
+      <div className="flex min-h-screen">
+        <div className="w-full lg:w-1/2 flex items-center justify-center p-8">
+          <Card className="w-full max-w-md">
+            <CardHeader>
+              <CardTitle>Sign In</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <Formik
+                initialValues={{ email: "", password: "" }}
+                validationSchema={validationSchema}
+                onSubmit={handleSubmit}
+              >
+                {({ errors, touched }) => (
+                  <Form className="space-y-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="email">Email</Label>
+                      <Field
+                        as={Input}
+                        id="email"
+                        name="email"
+                        type="email"
+                        placeholder="Enter your email"
+                      />
+                      {errors.email && touched.email && (
+                        <p className="text-sm text-red-500">{errors.email}</p>
+                      )}
+                    </div>
+
+                    <div className="space-y-2">
+                      <Label htmlFor="password">Password</Label>
+                      <div className="relative">
+                        <Field
+                          as={Input}
+                          id="password"
+                          name="password"
+                          type={showPassword ? "text" : "password"}
+                          placeholder="Enter password"
+                        />
+                        <button
+                          type="button"
+                          className="absolute right-3 top-1/2 -translate-y-1/2"
+                          onClick={() => setShowPassword(!showPassword)}
                         >
-                            {({errors, touched}) => (
-                                <Form className="space-y-4">
-                                    <div className="space-y-2">
-                                        <Label htmlFor="email">Email</Label>
-                                        <Field
-                                            as={Input}
-                                            id="email"
-                                            name="email"
-                                            type="email"
-                                            placeholder="Enter your email"
-                                        />
-                                        {errors.email && touched.email && (
-                                            <p className="text-sm text-red-500">{errors.email}</p>
-                                        )}
-                                    </div>
+                          {showPassword ? (
+                            <AiOutlineEyeInvisible className="w-5 h-5 text-gray-500" />
+                          ) : (
+                            <AiOutlineEye className="w-5 h-5 text-gray-500" />
+                          )}
+                        </button>
+                      </div>
+                      {errors.password && touched.password && (
+                        <p className="text-sm text-red-500">
+                          {errors.password}
+                        </p>
+                      )}
+                    </div>
 
-                                    <div className="space-y-2">
-                                        <Label htmlFor="password">Password</Label>
-                                        <div className="relative">
-                                            <Field
-                                                as={Input}
-                                                id="password"
-                                                name="password"
-                                                type={showPassword ? "text" : "password"}
-                                                placeholder="Enter password"
-                                            />
-                                            <button
-                                                type="button"
-                                                className="absolute right-3 top-1/2 -translate-y-1/2"
-                                                onClick={() => setShowPassword(!showPassword)}
-                                            >
-                                                {showPassword ? (
-                                                    <AiOutlineEyeInvisible className="w-5 h-5 text-gray-500"/>
-                                                ) : (
-                                                    <AiOutlineEye className="w-5 h-5 text-gray-500"/>
-                                                )}
-                                            </button>
-                                        </div>
-                                        {errors.password && touched.password && (
-                                            <p className="text-sm text-red-500">{errors.password}</p>
-                                        )}
-                                    </div>
+                    <Button
+                      type="submit"
+                      className="w-full"
+                      disabled={isLoading}
+                    >
+                      {isLoading ? "Signing In..." : "Sign In"}
+                    </Button>
 
-                                    <Button type="submit" className="w-full" disabled={isLoading}>
-                                        {isLoading ? "Signing In..." : "Sign In"}
-                                    </Button>
-
-                                    <div className="text-sm text-center text-gray-600">
-                                        <p className="mb-2">
-                                            <Button
-                                                variant="link"
-                                                className="p-0"
-                                                onClick={handleForgotPassword}
-                                            >
-                                                Forgot your password?
-                                            </Button>
-                                        </p>
-                                        <p>
-                                            Don't have an account?{" "}
-                                            <Link
-                                                href="/auth/signup"
-                                                className="text-primary hover:underline"
-                                            >
-                                                Sign Up
-                                            </Link>
-                                        </p>
-                                    </div>
-                                </Form>
-                            )}
-                        </Formik>
-                    </CardContent>
-                </Card>
-            </div>
-
-            <div className="w-1/2 relative hidden lg:block">
-                <Image
-                    src={loginBG || "/placeholder.svg"}
-                    alt="Culinary Odyssey Background"
-                    className="object-cover"
-                    fill
-                />
-                <div className="absolute inset-0 bg-black/30 flex flex-col justify-center px-12">
-                    <h1 className="text-4xl font-bold text-white text-center">
-                        CULINARY ODYSSEY
-                    </h1>
-                    <p className="text-white/90 text-center">
-                        A Catering management System
-                    </p>
-                </div>
-            </div>
-
-            <EnterEmail
-                isOpen={isEmailModalOpen}
-                onClose={() => setIsEmailModalOpen(false)}
-                onSubmit={handleEmailSubmit}
-            />
-
-            <EnterOtp
-                email={email}
-                isOpen={isOtpModalOpen}
-                onClose={() => setIsOtpModalOpen(false)}
-                onSubmit={handleOtpSubmit}
-            />
-
-            <ResetPassword
-                isOpen={isResetModalOpen}
-                onClose={() => setIsResetModalOpen(false)}
-                onSubmit={handleResetSubmit}
-                email={email}
-            />
+                    <div className="text-sm text-center text-gray-600">
+                      <p className="mb-2">
+                        <Button
+                          variant="link"
+                          className="p-0"
+                          onClick={handleForgotPassword}
+                        >
+                          Forgot your password?
+                        </Button>
+                      </p>
+                      <p>
+                        Don&apos;t have an account?{" "}
+                        <Link
+                          href="/auth/signup"
+                          className="text-primary hover:underline"
+                        >
+                          Sign Up
+                        </Link>
+                      </p>
+                    </div>
+                  </Form>
+                )}
+              </Formik>
+            </CardContent>
+          </Card>
         </div>
+
+        <div className="w-1/2 relative hidden lg:block">
+          <Image
+            src={loginBG || "/placeholder.svg"}
+            alt="Culinary Odyssey Background"
+            className="object-cover"
+            fill
+          />
+          <div className="absolute inset-0 bg-black/30 flex flex-col justify-center px-12">
+            <h1 className="text-4xl font-bold text-white text-center">
+              CULINARY ODYSSEY
+            </h1>
+            <p className="text-white/90 text-center">
+              A Catering management System
+            </p>
+          </div>
+        </div>
+
+        <EnterEmail
+          isOpen={isEmailModalOpen}
+          onClose={() => setIsEmailModalOpen(false)}
+          onSubmit={handleEmailSubmit}
+        />
+
+        <EnterOtp
+          email={email}
+          isOpen={isOtpModalOpen}
+          onClose={() => setIsOtpModalOpen(false)}
+          onSubmit={handleOtpSubmit}
+        />
+
+        <ResetPassword
+          isOpen={isResetModalOpen}
+          onClose={() => setIsResetModalOpen(false)}
+          onSubmit={handleResetSubmit}
+          email={email}
+        />
+      </div>
     );
 };
 
