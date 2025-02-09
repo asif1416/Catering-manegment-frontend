@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: process.env.BACKEND_URL,
+  baseURL: "http://lively-stillness-production.up.railway.app/",
   withCredentials: true,
 });
 
