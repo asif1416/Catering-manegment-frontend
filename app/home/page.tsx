@@ -85,8 +85,9 @@ export default function Home() {
         setSearchResults([]);
       }
     }, 300),
-    []
+    [] 
   );
+
 
 
   return (
