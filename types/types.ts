@@ -1,4 +1,4 @@
-export interface MenuItem {
+export type MenuItem = {
   id: number;
   name: string;
   description: string;
@@ -8,7 +8,7 @@ export interface MenuItem {
   image?: string; 
 }
 
-export interface OrderItem {
+export type OrderItem = {
   id: number;
   menuItem: {
     id: number;
@@ -20,10 +20,16 @@ export interface OrderItem {
   totalPrice: number;
 }
 
-export interface Order {
+export type Order = {
   id: number;
   items: OrderItem[];
   totalPrice: number;
   status: string;
   createdAt: string;
+}
+
+export interface PageProps {
+  params: {
+    id: string;
+  };
 }
