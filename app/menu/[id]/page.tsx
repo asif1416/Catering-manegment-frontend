@@ -4,11 +4,11 @@ import { fetchMenuItem } from "@/api/menu";
 import MenuItemDetails from "../MenuItemDetails";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import { MenuItem } from "@/types/types";
 
-export default function MenuItemPage({ params }: { params: { id: string } }) {
-  const { id } = params;
+export default function MenuItemPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = use(params);
   const [menuItem, setMenuItem] = useState<MenuItem | null>(null);
 
   useEffect(() => {
