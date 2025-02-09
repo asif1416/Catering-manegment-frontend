@@ -5,7 +5,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { PageProps } from "@/types/types";
 
-export default async function MenuItemPage({ params }:  PageProps ) {
+export default async function MenuItemPage({ params }: PageProps) {
   const menuItem = await fetchMenuItem(params.id);
 
   if (!menuItem) {
@@ -22,3 +22,4 @@ export default async function MenuItemPage({ params }:  PageProps ) {
     </>
   );
 }
+

@@ -5,8 +5,8 @@ export type MenuItem = {
   price: number;
   category: string;
   available: boolean;
-  image?: string; 
-}
+  image?: string;
+};
 
 export type OrderItem = {
   id: number;
@@ -18,7 +18,7 @@ export type OrderItem = {
   };
   quantity: number;
   totalPrice: number;
-}
+};
 
 export type Order = {
   id: number;
@@ -26,10 +26,8 @@ export type Order = {
   totalPrice: number;
   status: string;
   createdAt: string;
-}
+};
 
-export interface PageProps {
-  params: {
-    id: string;
-  };
-}
+export type PageProps = {
+  params: { id: string };
+};
