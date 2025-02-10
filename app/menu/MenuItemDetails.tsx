@@ -60,6 +60,11 @@ export default function MenuItemDetails({menuItem}: { menuItem: MenuItem }) {
             return;
         }
 
+        if (startDate && startDate > endDate) {
+          toast.error("End date must be after start date");
+          return;
+        }
+
         if (!address.trim()) {
             toast.error("Please provide a valid address");
             return;
