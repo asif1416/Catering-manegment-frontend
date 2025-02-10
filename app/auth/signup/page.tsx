@@ -14,6 +14,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Loader from "@/components/Loader";
+import api from "@/api/api";
 
 const validationSchema = Yup.object({
     name: Yup.string()
@@ -50,7 +51,7 @@ const SignUp = () => {
     const handleSignUp = async (values: { name: string; email: string; password: string; confirmPassword: string }) => {
         setIsLoading(true);
         try {
-            const response = await axios.post("http://localhost:3000/auth/register", values);
+            const response = await api.post("/auth/register", values);
             toast.success(response.data.message);
             setEmail(values.email);
             setIsOtpModalOpen(true);
@@ -63,7 +64,7 @@ const SignUp = () => {
 
     const handleOtpSubmit = async (otp: string) => {
         try {
-            await axios.post("http://localhost:3000/auth/verify-otp", { otp: parseInt(otp, 10), email: email });
+            await api.post("/auth/verify-otp", { otp: parseInt(otp, 10), email: email });
             toast.success("OTP verified successfully!");
             setIsOtpModalOpen(false);
             router.push("/auth/signin");
