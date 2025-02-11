@@ -81,7 +81,7 @@ export default function Home() {
         setSearchResults([]);
       }
     }, 300),
-    [searchMenuItems, setSearchResults]
+    []
   );
 
   return (
