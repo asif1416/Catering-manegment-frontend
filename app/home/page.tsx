@@ -9,7 +9,6 @@ import bg1 from "@/public/images/bg1.png";
 import bg2 from "@/public/images/bg2.jpg";
 import bg3 from "@/public/images/bg3.jpg";
 
-
 import { useAuthStore } from "@/store/auth-store";
 import debounce from "lodash.debounce";
 import { Input } from "@/components/ui/input";
@@ -24,26 +23,24 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 
-import { fetchMenuData, searchMenuItems } from "@/api/home"; 
+import { fetchMenuData, searchMenuItems } from "@/api/home";
 import toast from "react-hot-toast";
 import { FaApple, FaGooglePlay } from "react-icons/fa";
 import Loader from "@/components/Loader";
 
 export default function Home() {
-  const {  logout, checkAuth } = useAuthStore();
+  const { logout, checkAuth } = useAuthStore();
 
   const [menuData, setMenuData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchResults, setSearchResults] = useState([]);
   const [error, setError] = useState(null);
 
-
   const carouselImages = [
     { src: bg1, alt: "Image 1" },
     { src: bg2, alt: "Image 2" },
     { src: bg3, alt: "Image 3" },
   ];
-
 
   useEffect(() => {
     const initializeAuth = async () => {
@@ -63,7 +60,6 @@ export default function Home() {
         setMenuData(data);
       } catch (err: any) {
         setError(err.message);
-
       } finally {
         setLoading(false);
       }
@@ -85,10 +81,8 @@ export default function Home() {
         setSearchResults([]);
       }
     }, 300),
-    [] 
+    [searchMenuItems, setSearchResults]
   );
-
-
 
   return (
     <>

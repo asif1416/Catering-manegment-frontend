@@ -6,7 +6,6 @@ import { useRouter } from "next/navigation";
 import { Eye, EyeClosed } from "lucide-react";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
-import axios from 'axios';
 import toast from 'react-hot-toast';
 import EnterOtp from "@/components/EnterOtp";
 import { Button } from "@/components/ui/button";

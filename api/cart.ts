@@ -61,7 +61,7 @@ export const order = async (
   orderItems: { menuItemId: number; quantity: number }[]
 ) => {
   try {
-      const response = await api.post("/order/", {
+      const response = await api.post("/order", {
       items: orderItems, 
     });
 
