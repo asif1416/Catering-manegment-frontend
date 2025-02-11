@@ -131,139 +131,141 @@ export default function MenuItemDetails({menuItem}: { menuItem: MenuItem }) {
     };
 
     return (
-      <div className="container mx-auto p-4">
-        <div className="bg-white rounded-lg shadow-lg p-6">
-          <div className="border-t border-primary mb-6" />
-          <div className="mb-6 relative h-96">
-            <Image
-              src={`/images/${menuItem.image}`}
-              alt={menuItem.name}
-              fill
-              className="object-stretch rounded-lg"
-            />
-          </div>
+        <div className="container mx-auto p-4">
+            <div className="bg-white rounded-lg shadow-lg p-6">
+                <div className="border-t border-primary mb-6"/>
+                <div className="mb-6 relative h-96">
+                    <Image
+                        src={`/images/${menuItem.image}`}
+                        alt={menuItem.name}
+                        fill
+                        className="object-stretch rounded-lg"
+                    />
+                </div>
 
-          <div className="space-y-4">
-            <h2 className="text-3xl font-bold text-primary">{menuItem.name}</h2>
-            <p className="text-muted">{menuItem.description}</p>
-            <p className="text-xl font-semibold text-primary">
-              Price: ${menuItem.price}
-            </p>
-            <p className="text-muted">Category: {menuItem.category}</p>
-            <p
-              className={cn(
-                "font-semibold",
-                menuItem.available ? "text-green-600" : "text-red-600"
-              )}
-            >
-              {menuItem.available ? "Available" : "Not Available"}
-            </p>
-          </div>
+                <div className="space-y-4">
+                    <h2 className="text-3xl font-bold text-primary">{menuItem.name}</h2>
+                    <p className="text-muted">{menuItem.description}</p>
+                    <p className="text-xl font-semibold text-primary">
+                        Price: ${menuItem.price}
+                    </p>
+                    <p className="text-muted">Category: {menuItem.category}</p>
+                    <p
+                        className={cn(
+                            "font-semibold",
+                            menuItem.available ? "text-green-600" : "text-red-600"
+                        )}
+                    >
+                        {menuItem.available ? "Available" : "Not Available"}
+                    </p>
+                </div>
 
-          {/* Order Section */}
-          <div className="mt-8 pt-6 border-t border-gray-200">
-            <h3 className="text-2xl font-bold text-primary mb-4">
-              Make an Order
-            </h3>
+                {/* Order Section */}
+                <div className="mt-8 pt-6 border-t border-gray-200">
+                    <h3 className="text-2xl font-bold text-primary mb-4">
+                        Make an Order
+                    </h3>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
-              <Popover>
-                <PopoverTrigger asChild>
-                  <Button
-                    variant={"outline"}
-                    className={cn(
-                      "w-full justify-start text-left font-normal",
-                      !startDate && "text-muted-foreground"
-                    )}
-                    aria-label="Select Start Date"
-                  >
-                    <CalendarIcon className="mr-2 h-4 w-4" />
-                    {startDate ? (
-                      format(startDate, "PPP")
-                    ) : (
-                      <span>Start Date</span>
-                    )}
-                  </Button>
-                </PopoverTrigger>
-                <PopoverContent className="w-auto p-0 shadow-md rounded-md border bg-white">
-                  <Calendar
-                    mode="single"
-                    selected={startDate}
-                    onSelect={(date) => date && setStartDate(date)}
-                    initialFocus
-                  />
-                </PopoverContent>
-              </Popover>
-              <Popover>
-                <PopoverTrigger asChild>
-                  <Button
-                    variant={"outline"}
-                    className={cn(
-                      "w-full justify-start text-left font-normal",
-                      !endDate && "text-muted-foreground"
-                    )}
-                    aria-label="Select End Date"
-                  >
-                    <CalendarIcon className="mr-2 h-4 w-4" />
-                    {endDate ? format(endDate, "PPP") : <span>End Date</span>}
-                  </Button>
-                </PopoverTrigger>
-                <Calendar
-                  mode="single"
-                  selected={endDate || new Date()}
-                  onSelect={(date) => date && setEndDate(date)}
-                  initialFocus
-                />
-              </Popover>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+                        <Popover>
+                            <PopoverTrigger asChild>
+                                <Button
+                                    variant={"outline"}
+                                    className={cn(
+                                        "w-full justify-start text-left font-normal",
+                                        !startDate && "text-muted-foreground"
+                                    )}
+                                    aria-label="Select Start Date"
+                                >
+                                    <CalendarIcon className="mr-2 h-4 w-4"/>
+                                    {startDate ? (
+                                        format(startDate, "PPP")
+                                    ) : (
+                                        <span>Start Date</span>
+                                    )}
+                                </Button>
+                            </PopoverTrigger>
+                            <PopoverContent className="w-auto p-0">
+                                <Calendar
+                                    mode="single"
+                                    selected={startDate}
+                                    onSelect={setStartDate}
+                                    initialFocus
+                                />
+                            </PopoverContent>
+                        </Popover>
+                        <Popover>
+                            <PopoverTrigger asChild>
+                                <Button
+                                    variant={"outline"}
+                                    className={cn(
+                                        "w-full justify-start text-left font-normal",
+                                        !endDate && "text-muted-foreground"
+                                    )}
+                                    aria-label="Select End Date"
+                                >
+                                    <CalendarIcon className="mr-2 h-4 w-4"/>
+                                    {endDate ? format(endDate, "PPP") : <span>End Date</span>}
+                                </Button>
+                            </PopoverTrigger>
+                            <PopoverContent className="w-auto p-0">
+                                <Calendar
+                                    mode="single"
+                                    selected={endDate}
+                                    onSelect={setEndDate}
+                                    initialFocus
+                                />
+                            </PopoverContent>
+                        </Popover>
+                    </div>
+
+                    <div className="space-y-4">
+                        <div>
+                            <Label htmlFor="quantity" className="text-muted">
+                                Quantity
+                            </Label>
+                            <Input
+                                id="quantity"
+                                type="number"
+                                min="1"
+                                value={quantity}
+                                onChange={handleQuantityChange}
+                                className="hover:outline-primary"
+                            />
+                        </div>
+
+                        <div>
+                            <Label htmlFor="address " className="text-muted">
+                                Address
+                            </Label>
+                            <Input
+                                id="address"
+                                placeholder="Enter your address"
+                                value={address}
+                                onChange={(e) => setAddress(e.target.value)}
+                                className="hover:outline-primary"
+                            />
+                        </div>
+
+                        <div className="flex justify-end gap-4">
+                            <Button
+                                onClick={handleAddToCart}
+                                disabled={isAddingToCart || !menuItem.available}
+                                className="hover:outline-primary"
+                            >
+                                {isAddingToCart ? "Adding to cart..." : "Add to cart"}
+                            </Button>
+                            <Button
+                                onClick={handlePlaceOrder}
+                                disabled={isPlacingOrder || !menuItem.available}
+                                className="hover:outline-primary"
+                            >
+                                {isPlacingOrder ? "Placing Order..." : "Place Order"}
+                            </Button>
+                        </div>
+                    </div>
+                </div>
             </div>
-
-            <div className="space-y-4">
-              <div>
-                <Label htmlFor="quantity" className="text-muted">
-                  Quantity
-                </Label>
-                <Input
-                  id="quantity"
-                  type="number"
-                  min="1"
-                  value={quantity}
-                  onChange={handleQuantityChange}
-                  className="hover:outline-primary"
-                />
-              </div>
-
-              <div>
-                <Label htmlFor="address " className="text-muted">
-                  Address
-                </Label>
-                <Input
-                  id="address"
-                  placeholder="Enter your address"
-                  value={address}
-                  onChange={(e) => setAddress(e.target.value)}
-                  className="hover:outline-primary"
-                />
-              </div>
-
-              <div className="flex justify-end gap-4">
-                <Button
-                  onClick={handleAddToCart}
-                  disabled={isAddingToCart || !menuItem.available}
-                  className="hover:outline-primary"
-                >
-                  {isAddingToCart ? "Adding to cart..." : "Add to cart"}
-                </Button>
-                <Button
-                  onClick={handlePlaceOrder}
-                  disabled={isPlacingOrder || !menuItem.available}
-                  className="hover:outline-primary"
-                >
-                  {isPlacingOrder ? "Placing Order..." : "Place Order"}
-                </Button>
-              </div>
-            </div>
-          </div>
         </div>
-      </div>
     );
 }
