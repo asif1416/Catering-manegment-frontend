@@ -46,17 +46,20 @@ export default function ContactForm() {
     try {
       const response = await api.post("/contact", trimmedData);
 
-      if (response.status !== 200) throw new Error("Failed to send message");
-
-      setSuccess(true);
-      setFormData({ name: "", email: "", message: "" });
-    } catch (error) {
-      console.error(error);
-      setError("Something went wrong. Please try again.");
+      console.log("Response:", response); 
+      if (response.status === 201) {
+        setSuccess(true);
+        setFormData({ name: "", email: "", message: "" });
+      } else {
+        throw new Error("Unexpected response status");
+      }
+    } catch (error: any) {
+      setError(error.message);
     } finally {
       setLoading(false);
     }
   };
+
 
   return (
     <>
