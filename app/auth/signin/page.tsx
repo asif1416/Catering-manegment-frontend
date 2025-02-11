@@ -95,7 +95,11 @@ const SignIn = () => {
 
     return (
       <div className="flex min-h-screen">
-        <div className="w-full lg:w-1/2 flex items-center justify-center p-8">
+        <div className="w-full lg:w-1/2 flex flex-col items-center justify-center p-8">
+          <div className="text-center mb-4 lg:hidden">
+            <h1 className="text-4xl font-bold text-primary">CULINARY ODYSSEY</h1>
+            <p>A Catering management System</p>
+          </div>
           <Card className="w-full max-w-md">
             <CardHeader>
               <CardTitle>Sign In</CardTitle>

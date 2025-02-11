@@ -6,6 +6,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { use, useEffect, useState } from "react";
 import { MenuItem } from "@/types/types";
+import Loader from './../../../components/Loader';
 
 export default function MenuItemPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params);
@@ -24,7 +25,7 @@ export default function MenuItemPage({ params }: { params: Promise<{ id: string 
   }, [id]);
 
   if (!menuItem) {
-    return <div>Loading...</div>;
+    return <div><Loader /></div>;
   }
 
   return (
