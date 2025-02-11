@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: "https://backend-phi-one-40.vercel.app/",
+  baseURL: "https://lively-stillness-production.up.railway.app/",
   withCredentials: true,
 });
 
