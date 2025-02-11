@@ -31,8 +31,20 @@ export default function ContactForm() {
     setError("");
     setSuccess(false);
 
+    const trimmedData = {
+      name: formData.name.trim(),
+      email: formData.email.trim(),
+      message: formData.message.trim(),
+    };
+
+    if (trimmedData.message.length < 4) {
+      setError("Message must be at least 4 characters.");
+      setLoading(false);
+      return;
+    }
+
     try {
-      const response = await api.post("/contact", formData);
+      const response = await api.post("/contact", trimmedData);
 
       if (response.status !== 200) throw new Error("Failed to send message");
 
