@@ -189,11 +189,12 @@ export default function MenuItemDetails({ menuItem }: { menuItem: MenuItem }) {
                   )}
                 </Button>
               </PopoverTrigger>
-              <PopoverContent className="w-auto p-0" align="start">
+              <PopoverContent className="w-auto p-0 shadow-md rounded-md border bg-white">
                 <Calendar
                   mode="single"
-                  selected={startDate || new Date()}
+                  selected={startDate}
                   onSelect={(date) => date && setStartDate(date)}
+                  initialFocus
                 />
               </PopoverContent>
             </Popover>
@@ -211,11 +212,12 @@ export default function MenuItemDetails({ menuItem }: { menuItem: MenuItem }) {
                   {endDate ? format(endDate, "PPP") : <span>End Date</span>}
                 </Button>
               </PopoverTrigger>
-              <PopoverContent className="w-auto p-0" align="start">
+              <PopoverContent className="w-auto p-0 shadow-md rounded-md border bg-white">
                 <Calendar
                   mode="single"
-                  selected={endDate || new Date()}
-                  onSelect={(date) => date && setEndDate(date)}
+                  selected={startDate}
+                  onSelect={(date) => date && setStartDate(date)}
+                  initialFocus
                 />
               </PopoverContent>
             </Popover>
