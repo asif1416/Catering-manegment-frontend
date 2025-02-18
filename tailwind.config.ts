@@ -1,4 +1,4 @@
-import type { Config } from "tailwindcss";
+import type {Config} from "tailwindcss";
 
 export default {
   darkMode: ["class"],
@@ -6,9 +6,6 @@ export default {
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
-    "./node_modules/flowbite/**/*.js",
-    "./node_modules/@nextui-org/theme/dist/components/(avatar|button|modal|ripple|spinner).js",
-    "./node_modules/@heroui/theme/dist/components/(date-input|form).js",
   ],
   theme: {
     extend: {
@@ -62,5 +59,5 @@ export default {
       },
     },
   },
-  plugins: [require("@tailwindcss/forms")],
+  plugins: [],
 } satisfies Config;
